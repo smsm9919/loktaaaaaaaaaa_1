@@ -2,7 +2,7 @@ services:
   - type: web
     name: flow-market-pro
     env: python
-    plan: basic
+    plan: starter   # بدل basic → starter
     region: frankfurt
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app -k eventlet -w 1 -b 0.0.0.0:$PORT
