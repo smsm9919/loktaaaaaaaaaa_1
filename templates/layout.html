@@ -1,0 +1,42 @@
+
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}سوق فلو{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<header class="topbar">
+  <div class="container">
+    <div class="brand">🛒 سوق فلو</div>
+    <nav>
+      <a href="{{ url_for('index') }}">الرئيسية</a>
+      {% if current_user.is_authenticated %}
+        <a href="{{ url_for('add_product') }}">أضف منتج</a>
+        <a href="{{ url_for('logout') }}">خروج</a>
+      {% else %}
+        <a href="{{ url_for('register') }}">تسجيل</a>
+        <a href="{{ url_for('login') }}">دخول</a>
+      {% endif %}
+      <a href="{{ url_for('health') }}">حالة الخدمة</a>
+    </nav>
+  </div>
+</header>
+<main class="container">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}<ul class="flashes">{% for cat, msg in messages %}<li class="{{cat}}">{{ msg }}</li>{% endfor %}</ul>{% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+<div id="chat-widget" class="chat-widget hidden">
+  <div class="chat-header"><span>الشات المباشر</span><button id="chat-close">×</button></div>
+  <div id="chat-messages" class="chat-messages"></div>
+  <div class="chat-input">
+    <input id="chat-text" type="text" placeholder="اكتب رسالتك..."><button id="chat-send">إرسال</button>
+  </div>
+</div>
+<button id="chat-toggle" class="chat-toggle">💬</button>
+<script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+</body></html>

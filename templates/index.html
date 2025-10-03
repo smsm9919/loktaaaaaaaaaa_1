@@ -1,0 +1,20 @@
+
+{% extends "layout.html" %}
+{% block title %}سوق فلو - الرئيسية{% endblock %}
+{% block content %}
+<h1 class="page-title">مرحباً بك في سوق فلو</h1>
+<p class="lead">ارفع صورك خارجيًا، واعرض منتجك، وتواصل فورًا مع البائع.</p>
+<div class="grid">
+{% for product in products %}
+  <div class="card">
+    <img src="{{ product.image_url }}" alt="{{ product.title }}">
+    <h3>{{ product.title }}</h3>
+    <div class="price">{{ '%.2f'|format(product.price) }} جنيه</div>
+    <p class="desc">{{ product.description }}</p>
+    <button class="cta" onclick="openProductChat({{ product.id }}, '{{ current_user.username if current_user.is_authenticated else 'زائر' }}')">تواصل مع البائع</button>
+  </div>
+{% else %}
+  <div class="empty">لا توجد منتجات بعد. <a href="{{ url_for('add_product') }}">أضف منتجك الآن</a>.</div>
+{% endfor %}
+</div>
+{% endblock %}

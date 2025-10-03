@@ -1,0 +1,15 @@
+
+{% extends "layout.html" %}
+{% block title %}تسجيل حساب{% endblock %}
+{% block content %}
+<div class="auth-card">
+  <h2>إنشاء حساب جديد</h2>
+  <form method="post">
+    <label>اسم المستخدم</label><input name="username" required>
+    <label>البريد الإلكتروني</label><input type="email" name="email" required>
+    <label>كلمة المرور</label><input type="password" name="password" required>
+    <button>تسجيل</button>
+  </form>
+  <div class="links"><a href="{{ url_for('login') }}">لديك حساب؟ دخول</a></div>
+</div>
+{% endblock %}
